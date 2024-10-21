@@ -6,11 +6,11 @@ const BadgeVariants = cva(
   {
     variants: {
       variant: {
-        default: ["bg-gray-50", "border-neutral-200"],
+        neutral: ["bg-gray-50", "border-neutral-200"],
         error: ["bg-red-50", "border-red-200"],
         warning: ["bg-amber-50", "border-amber-200"],
         success: ["bg-green-50", "border-green-200"],
-        info: ["bg-indigo-50", "border-indigo-200"],
+        brand: ["bg-indigo-50", "border-indigo-200"],
       },
       size: {
         sm: "px-1 py-0.5",
@@ -24,11 +24,11 @@ const BadgeVariants = cva(
 const BadgeLabelVariants = cva("text-center font-normal", {
   variants: {
     variant: {
-      default: "text-neutral-600",
+      neutral: "text-neutral-600",
       error: "text-red-600",
       warning: "text-amber-700",
       success: "text-green-700",
-      info: "text-indigo-700",
+      brand: "text-indigo-700",
     },
     size: {
       sm: "text-xs",

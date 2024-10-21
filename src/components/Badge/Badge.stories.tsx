@@ -12,7 +12,7 @@ const meta = {
     label: { control: "text" },
     variant: {
       control: "select",
-      options: ["default", "error", "warning", "success", "info"],
+      options: ["neutral", "error", "warning", "success", "info"],
     },
     size: {
       control: "select",
@@ -26,7 +26,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    variant: "default",
+    variant: "neutral",
     size: "sm",
     label: "Label",
   },
@@ -43,16 +43,16 @@ export const Default: Story = {
 
 export const Preview: Story = {
   args: {
-    variant: "default",
+    variant: "neutral",
     size: "sm",
     label: "Label",
   },
   render: function Render(args) {
     return (
       <div className="grid grid-cols-3 items-center gap-4">
-        <Badge {...args} variant={"default"} size="sm" />
-        <Badge {...args} variant={"default"} size="md" />
-        <Badge {...args} variant={"default"} size="lg" />
+        <Badge {...args} variant={"neutral"} size="sm" />
+        <Badge {...args} variant={"neutral"} size="md" />
+        <Badge {...args} variant={"neutral"} size="lg" />
         <Badge {...args} variant={"error"} size="sm" />
         <Badge {...args} variant={"error"} size="md" />
         <Badge {...args} variant={"error"} size="lg" />
