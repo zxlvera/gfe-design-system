@@ -7,12 +7,12 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
+  tags: ["badge"],
   argTypes: {
     label: { control: "text" },
     variant: {
       control: "select",
-      options: ["neutral", "error", "warning", "success", "info"],
+      options: ["neutral", "error", "warning", "success", "brand"],
     },
     size: {
       control: "select",
@@ -62,9 +62,9 @@ export const Preview: Story = {
         <Badge {...args} variant={"success"} size="sm" />
         <Badge {...args} variant={"success"} size="md" />
         <Badge {...args} variant={"success"} size="lg" />
-        <Badge {...args} variant={"info"} size="sm" />
-        <Badge {...args} variant={"info"} size="md" />
-        <Badge {...args} variant={"info"} size="lg" />
+        <Badge {...args} variant={"brand"} size="sm" />
+        <Badge {...args} variant={"brand"} size="md" />
+        <Badge {...args} variant={"brand"} size="lg" />
       </div>
     )
   },
@@ -121,9 +121,9 @@ export const Success: Story = {
   },
 }
 
-export const Info: Story = {
+export const Brand: Story = {
   args: {
-    variant: "info",
+    variant: "brand",
     size: "sm",
     label: "Label",
   },
