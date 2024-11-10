@@ -117,6 +117,7 @@ const placementClasses = {
   left: "",
   right: "flex-row-reverse",
   both: "",
+  hidden: "",
 }
 
 export interface ButtonProps
