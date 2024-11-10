@@ -7,7 +7,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-  tags: ["badge"],
+  tags: ["autodocs", "badge"],
   argTypes: {
     label: { control: "text" },
     variant: {
