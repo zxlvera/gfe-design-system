@@ -2,60 +2,11 @@ import { cva, cx, VariantProps } from "class-variance-authority"
 import { classNames } from "utils"
 
 import { ButtonIcon } from "./ButtonIcon"
+import { variantStyles } from "./variantStyles"
 
 const ButtonVariants = cva("inline-flex items-center justify-center rounded", {
   variants: {
-    variant: {
-      primary: [
-        "bg-indigo-700",
-        "border-none",
-        "disabled:bg-neutral-100",
-        "focus:border-neutral-200",
-        "hover:bg-indigo-800",
-        "focus:ring",
-        "focus:ring-indigo-100",
-      ],
-      secondary: [
-        "bg-white",
-        "shadow-md",
-        "border-[0.5px]",
-        "border-solid",
-        "border-neutral-200",
-        "disabled:bg-neutral-100",
-        "hover:bg-neutral-50",
-        "focus:ring",
-        "focus:ring-indigo-100",
-      ],
-      tertiary: [
-        "bg-none",
-        "border-none",
-        "hover:bg-neutral-50",
-        "focus:ring",
-        "focus:ring-indigo-100",
-      ],
-      link_color: [
-        "bg-none",
-        "border-none",
-        "focus:ring",
-        "focus:ring-indigo-100",
-        "p-0",
-      ],
-      link_grey: [
-        "border-none",
-        "bg-none",
-        "focus:ring",
-        "focus:ring-indigo-100",
-        "p-0",
-      ],
-      destructive: [
-        "bg-red-600",
-        "border-none",
-        "hover:bg-red-700",
-        "disabled:bg-transparent",
-        "focus:ring",
-        "focus:ring-red-100",
-      ],
-    },
+    variant: { ...variantStyles },
     size: {
       md: "gap-1",
       lg: "gap-1.5",
@@ -77,7 +28,7 @@ const ButtonVariants = cva("inline-flex items-center justify-center rounded", {
     {
       variant: ["primary", "secondary", "tertiary", "destructive"],
       size: "xl",
-      className: "gap-1.5 px-5 py-3",
+      className: "px-5 py-3",
     },
     {
       variant: ["primary", "secondary", "tertiary", "destructive"],
@@ -91,8 +42,49 @@ const ButtonVariants = cva("inline-flex items-center justify-center rounded", {
   },
 })
 
+const ButtonIconVariants = cva(
+  "inline-flex items-center justify-center rounded",
+  {
+    variants: {
+      variant: { ...variantStyles },
+      size: {
+        md: "gap-1",
+        lg: "gap-1.5",
+        xl: "gap-1.5",
+        xxl: "gap-2.5",
+      },
+    },
+    compoundVariants: [
+      {
+        variant: ["primary", "secondary", "tertiary", "destructive"],
+        size: "md",
+        className: "p-2.5",
+      },
+      {
+        variant: ["primary", "secondary", "tertiary", "destructive"],
+        size: "lg",
+        className: "p-3",
+      },
+      {
+        variant: ["primary", "secondary", "tertiary", "destructive"],
+        size: "xl",
+        className: "p-3.5",
+      },
+      {
+        variant: ["primary", "secondary", "tertiary", "destructive"],
+        size: "xxl",
+        className: "p-4",
+      },
+    ],
+    defaultVariants: {
+      size: "md",
+      variant: "primary",
+    },
+  },
+)
+
 const ButtonLabelVariants = cva(
-  "text-center font-normal disabled:text-neutral-400",
+  "text-center font-medium disabled:text-neutral-400",
   {
     variants: {
       variant: {
@@ -114,42 +106,63 @@ const ButtonLabelVariants = cva(
 )
 
 const placementClasses = {
-  left: "",
-  right: "flex-row-reverse",
-  both: "",
-  hidden: "",
+  start: "",
+  end: "flex-row-reverse",
 }
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: VariantProps<typeof ButtonVariants>["variant"]
   size: VariantProps<typeof ButtonLabelVariants>["size"]
-  placement?: "left" | "right" | "both" | "hidden"
-  label?: string
+  icon?: React.ReactNode
+  iconPosition?: "start" | "end"
   disabled?: boolean
+  children?: React.ReactNode
 }
 
 export function Button(props: ButtonProps) {
-  const { label, variant, size, placement = "hidden", ...restProps } = props
+  const {
+    variant,
+    size,
+    icon = null,
+    iconPosition = "start",
+    children = null,
+    ...restProps
+  } = props
 
   return (
-    <button
-      {...restProps}
-      className={cx(
-        ButtonVariants({ variant, size }),
-        ButtonLabelVariants({ variant, size }),
+    <>
+      {children ? (
+        <button
+          {...restProps}
+          className={cx(
+            ButtonVariants({ variant, size }),
+            ButtonLabelVariants({ variant, size }),
+          )}
+          data-testid="badge-container"
+        >
+          <span
+            className={classNames(
+              "inline-flex items-center justify-between gap-1",
+              placementClasses[iconPosition],
+            )}
+          >
+            {icon ? icon : null}
+            {children}
+          </span>
+        </button>
+      ) : (
+        <button
+          {...restProps}
+          className={cx(
+            ButtonIconVariants({ variant, size }),
+            ButtonLabelVariants({ variant, size }),
+          )}
+          data-testid="badge-container"
+        >
+          {icon ? icon : <ButtonIcon />}
+        </button>
       )}
-      data-testid="badge-container"
-    >
-      <span
-        className={classNames(
-          "inline-flex items-center justify-between gap-1",
-          placementClasses[placement],
-        )}
-      >
-        {(placement !== "hidden" || !label) && <ButtonIcon />}
-        {label}
-      </span>
-    </button>
+    </>
   )
 }

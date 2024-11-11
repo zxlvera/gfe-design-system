@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 
 export default {
-  content: ['./src/**/*.{mjs,js,ts,jsx,tsx}'],
+  content: ["./src/**/*.{mjs,js,ts,jsx,tsx}"],
   theme: {
-    extend: {}
+    extend: {
+      screens: {
+        mobile: "375px",
+        tablet: "768px",
+        desktop: "1440px",
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 }

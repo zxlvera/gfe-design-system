@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { Button } from "./Button"
+import { ButtonIcon } from "./ButtonIcon"
 
 const meta = {
   title: "Components/Button",
@@ -9,17 +10,68 @@ const meta = {
   },
   tags: ["autodocs", "button"],
   argTypes: {
-    label: { control: "text" },
+    icon: {
+      control: "inline-radio",
+      options: ["show", "hide"],
+      mapping: {
+        show: <ButtonIcon />,
+        hide: null,
+      },
+      table: {
+        defaultValue: {
+          summary: "show",
+        },
+      },
+    },
+    iconPosition: {
+      control: "radio",
+      options: ["start", "end"],
+      table: {
+        defaultValue: {
+          summary: "start",
+        },
+      },
+    },
+    children: {
+      control: "text",
+      table: {
+        defaultValue: {
+          summary: "Button CTA",
+        },
+      },
+    },
     variant: {
       control: "radio",
-      options: ["primary", "secondary", "tertiary", "link", "destructive"],
+      options: [
+        "primary",
+        "secondary",
+        "tertiary",
+        "link_color",
+        "link_grey",
+        "destructive",
+      ],
+      table: {
+        defaultValue: {
+          summary: "primary",
+        },
+      },
     },
     size: {
       control: "select",
       options: ["md", "lg", "xl", "xxl"],
+      table: {
+        defaultValue: {
+          summary: "md",
+        },
+      },
     },
     disabled: {
       control: "boolean",
+      table: {
+        defaultValue: {
+          summary: "false",
+        },
+      },
     },
   },
 } satisfies Meta<typeof Button>
@@ -31,7 +83,6 @@ export const Prmary: Story = {
   args: {
     variant: "primary",
     size: "md",
-    label: "Button CTA",
     disabled: false,
   },
 }
@@ -40,7 +91,6 @@ export const Secondary: Story = {
   args: {
     variant: "secondary",
     size: "md",
-    label: "Button CTA",
     disabled: false,
   },
 }
@@ -49,7 +99,6 @@ export const LinkColor: Story = {
   args: {
     variant: "link_color",
     size: "md",
-    label: "Button CTA",
     disabled: false,
   },
 }
@@ -58,7 +107,6 @@ export const LinkGrey: Story = {
   args: {
     variant: "link_grey",
     size: "md",
-    label: "Button CTA",
     disabled: false,
   },
 }
@@ -67,7 +115,6 @@ export const Destructive: Story = {
   args: {
     variant: "destructive",
     size: "md",
-    label: "Button CTA",
     disabled: false,
   },
 }

@@ -26,6 +26,9 @@ export const Route = createRootRoute({
         <Link to="/buttons" className="[&.active]:font-bold">
           Buttons
         </Link>
+        <Link to="/navbar" className="[&.active]:font-bold">
+          Navbar
+        </Link>
       </div>
       <hr />
       <Outlet />

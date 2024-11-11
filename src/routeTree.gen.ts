@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as NavbarImport } from './routes/navbar'
 import { Route as ButtonsImport } from './routes/buttons'
 import { Route as BadgesImport } from './routes/badges'
 
@@ -28,6 +29,12 @@ const AboutLazyRoute = AboutLazyImport.update({
   path: '/about',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+
+const NavbarRoute = NavbarImport.update({
+  id: '/navbar',
+  path: '/navbar',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const ButtonsRoute = ButtonsImport.update({
   id: '/buttons',
@@ -72,6 +79,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ButtonsImport
       parentRoute: typeof rootRoute
     }
+    '/navbar': {
+      id: '/navbar'
+      path: '/navbar'
+      fullPath: '/navbar'
+      preLoaderRoute: typeof NavbarImport
+      parentRoute: typeof rootRoute
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -88,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/badges': typeof BadgesRoute
   '/buttons': typeof ButtonsRoute
+  '/navbar': typeof NavbarRoute
   '/about': typeof AboutLazyRoute
 }
 
@@ -95,6 +110,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/badges': typeof BadgesRoute
   '/buttons': typeof ButtonsRoute
+  '/navbar': typeof NavbarRoute
   '/about': typeof AboutLazyRoute
 }
 
@@ -103,15 +119,16 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/badges': typeof BadgesRoute
   '/buttons': typeof ButtonsRoute
+  '/navbar': typeof NavbarRoute
   '/about': typeof AboutLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/badges' | '/buttons' | '/about'
+  fullPaths: '/' | '/badges' | '/buttons' | '/navbar' | '/about'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/badges' | '/buttons' | '/about'
-  id: '__root__' | '/' | '/badges' | '/buttons' | '/about'
+  to: '/' | '/badges' | '/buttons' | '/navbar' | '/about'
+  id: '__root__' | '/' | '/badges' | '/buttons' | '/navbar' | '/about'
   fileRoutesById: FileRoutesById
 }
 
@@ -119,6 +136,7 @@ export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   BadgesRoute: typeof BadgesRoute
   ButtonsRoute: typeof ButtonsRoute
+  NavbarRoute: typeof NavbarRoute
   AboutLazyRoute: typeof AboutLazyRoute
 }
 
@@ -126,6 +144,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   BadgesRoute: BadgesRoute,
   ButtonsRoute: ButtonsRoute,
+  NavbarRoute: NavbarRoute,
   AboutLazyRoute: AboutLazyRoute,
 }
 
@@ -142,6 +161,7 @@ export const routeTree = rootRoute
         "/",
         "/badges",
         "/buttons",
+        "/navbar",
         "/about"
       ]
     },
@@ -153,6 +173,9 @@ export const routeTree = rootRoute
     },
     "/buttons": {
       "filePath": "buttons.tsx"
+    },
+    "/navbar": {
+      "filePath": "navbar.tsx"
     },
     "/about": {
       "filePath": "about.lazy.tsx"
