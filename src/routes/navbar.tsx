@@ -10,9 +10,7 @@ export const Route = createFileRoute("/navbar")({
 function RouteComponent() {
   return (
     <div className="flex h-screen flex-col bg-gradient-to-b from-gray-50 to-[#d2d6db]">
-      <div className="flex flex-col px-28 pt-24">
-        <Navbar />
-      </div>
+      <Navbar />
     </div>
   )
 }
