@@ -118,6 +118,7 @@ export interface ButtonProps
   iconPosition?: "start" | "end"
   disabled?: boolean
   children?: React.ReactNode
+  "data-testid": string
 }
 
 export function Button(props: ButtonProps) {
@@ -139,7 +140,7 @@ export function Button(props: ButtonProps) {
             ButtonVariants({ variant, size }),
             ButtonLabelVariants({ variant, size }),
           )}
-          data-testid="badge-container"
+          data-testid={props["data-testid"]}
         >
           <span
             className={classNames(
